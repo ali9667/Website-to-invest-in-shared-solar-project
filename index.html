@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Solar Investment Platform</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="#" onclick="showSection('home')">Home</a></li>
+        <li><a href="#" onclick="showSection('investment')">Investment</a></li>
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('profile')">Profile</a></li>
+        <li><a href="#" onclick="showSection('login')">Login/Signup</a></li>
+      </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="active">
+      <div class="home-content">
+        <h2>Welcome to the Community Solar Investment Platform</h2>
+        <!-- <p>
+          Join us in investing in solar energy projects and track your impact on
+          the environment.
+        </p> -->
+        <button class="explore-btn" onclick="showSection('investment')">
+          Explore Projects
+        </button>
+      </div>
+
+      <!-- Featured Projects -->
+      <section id="featuredProjects">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid" id="featuredProjectsGrid"></div>
+      </section>
+
+      <!-- Impact Calculator Section -->
+      <section id="impactCalculator">
+        <h2>Impact Calculator</h2>
+        <label for="investmentAmount">Investment Amount ($):</label>
+        <input type="number" id="investmentAmount" placeholder="Enter amount" />
+        <button onclick="calculateImpact()">Calculate Impact</button>
+        <canvas id="impactChart" style="display: none"></canvas>
+        <p id="impactResult"></p>
+      </section>
+
+      <!-- Newsletter Signup -->
+      <section id="newsletterSignup">
+        <h2>Subscribe to Our Newsletter</h2>
+        <form id="newsletterForm">
+          <input
+            style="width: 50%; margin-left: 25%"
+            type="email"
+            placeholder="Your Email"
+            required
+          />
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+
+      <!-- FAQs Section -->
+      <section id="faqs">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>What is community solar?</h3>
+          <p>
+            Community solar allows multiple customers to benefit from the energy
+            produced by one solar array.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I invest?</h3>
+          <p>
+            Investing is simple! Just browse our projects and choose how much
+            you'd like to invest.
+          </p>
+        </div>
+      </section>
+
+      <!-- User Reviews -->
+      <section id="userReviews">
+        <h2>User Reviews</h2>
+        <div id="reviewsLog">
+          <p>No reviews yet.</p>
+        </div>
+        <button onclick="addReview()">Leave a Review</button>
+      </section>
+
+      <!-- Promotional Banner -->
+      <div id="promoBanner">
+        <p>
+          🌞 Limited time offer: Invest in any project and get a 10% bonus on
+          your investment! 🌞
+        </p>
+      </div>
+
+      <!-- Upcoming Events Section -->
+      <section id="upcomingEvents">
+        <h2>Upcoming Events</h2>
+        <ul>
+          <li>Solar Energy Workshop - March 15, 2024</li>
+          <li>Community Solar Fair - April 10, 2024</li>
+        </ul>
+      </section>
+
+      <!-- Video Introduction -->
+      <section id="videoIntroduction">
+        <h2>Watch Our Introduction</h2>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/your-video-id"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </section>
+    </section>
+
+    <!-- Login/Signup Section -->
+    <section id="login" style="display: none">
+      <h2 id="formTitle">Login to Your Account</h2>
+      <form id="authForm">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+
+        <div id="signupFields" style="display: none">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required />
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" required />
+        </div>
+
+        <button type="submit">Submit</button>
+        <p>
+          Don't have an account? <a href="#" id="toggleLink">Sign up here</a>
+        </p>
+      </form>
+    </section>
+
+    <!-- Investment Section -->
+    <section id="investment" style="display: none">
+      <h2>Available Solar Projects</h2>
+      <button type="submit"><a href="paytm.html">Buy</a></button>
+      <div class="projects-grid" id="projectsGrid">submit</div>
+    </section>
+
+    <!-- Investment Modal -->
+    <div class="modal" id="investmentModal" style="display: none">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h3>Confirm Your Investment</h3>
+        <p id="investmentDetails"></p>
+        <button id="confirmInvestment">Confirm Investment</button>
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" style="display: none">
+      <h2 style="text-align: center">Your Dashboard</h2>
+      <div class="dashboard-content">
+        <p>Total Investment: $<span id="totalInvestment">0.00</span></p>
+        <h3>Recent Activity</h3>
+        <div class="activity-log" id="activityLog">
+          <p>No recent activity</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Profile Section -->
+    <section id="profile" style="display: none">
+      <h2>User Profile</h2>
+      <div class="profile-content">
+        <div class="profile-pic">
+          <img src="demo.png" alt="User Profile Picture" />
+          <button class="edit-pic">✎</button>
+        </div>
+        <div class="profile-info">
+          <p><strong>Name:</strong> John Doe</p>
+          <p><strong>Email:</strong> johndoe@example.com</p>
+          <p><strong>Contact:</strong> 926XXXXXXX</p>
+          <button class="edit-btn">Edit Profile</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2024 Community Solar Sharing Platform |
+        <a href="#">Contact Us</a>
+      </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
