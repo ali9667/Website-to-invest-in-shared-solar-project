@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paytm Payment</title>
+  </head>
+  <body>
+    <form
+      id="paymentForm"
+      action="https://secure.paytm.in/oltp-web/processTransaction"
+      method="POST"
+    >
+      <input type="hidden" name="MID" value="YOUR_MERCHANT_ID" />
+      <input type="hidden" name="ORDER_ID" value="YOUR_ORDER_ID" />
+      <input type="hidden" name="CUST_ID" value="YOUR_CUSTOMER_ID" />
+      <input type="hidden" name="CHANNEL_ID" value="WEB" />
+      <input type="hidden" name="INDUSTRY_TYPE_ID" value="Retail" />
+      <input type="hidden" name="TXN_AMOUNT" value="YOUR_TXN_AMOUNT" />
+      <input type="hidden" name="CALLBACK_URL" value="YOUR_CALLBACK_URL" />
+      <input type="hidden" name="CHECKSUMHASH" id="checksum" />
+      <button type="submit">Pay Now</button>
+    </form>
+
+    <script>
+      // Fetch the checksum from your server
+      async function getChecksum() {
+        const response = await fetch("/generateChecksum", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            orderId: "YOUR_ORDER_ID",
+            customerId: "YOUR_CUSTOMER_ID",
+            amount: "YOUR_TXN_AMOUNT",
+          }),
+        });
+
+        const data = await response.json();
+        document.getElementById("checksum").value = data.CHECKSUMHASH;
+      }
+
+      window.onload = getChecksum;
+    </script>
+  </body>
+</html>
